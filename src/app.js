@@ -5,7 +5,7 @@ const app = express();
 
 // Define a route
 app.get('/', (req, res) => {
-  res.status(200).send('The Acquisitions API is working!');
+  res.status(200).send('Hello from Acquisitions API!');
 });
 
 export default app; 

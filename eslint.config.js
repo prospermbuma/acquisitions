@@ -50,4 +50,4 @@ export default [
   {
     ignores: ['node_modules/**', 'coverage/**', 'logs/**', 'drizzle/**'],
   },
-]; 
+];

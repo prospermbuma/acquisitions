@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "Acquisitions API",
   "type": "module",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
-    "dev": "node --watch src/app.js"
+    "dev": "node --watch index.js"
   },
   "repository": {
     "type": "git",

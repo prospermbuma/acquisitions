@@ -10,8 +10,8 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate",
+    "db:generate": "drizzle-kit generate:pg",
+    "db:migrate": "drizzle-kit migrate:pg",
     "db:studio": "drizzle-kit studio"
   },
   "repository": {
@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.37.0",
-    "drizzle-kit": "^0.18.1",
+    "drizzle-kit": "^0.31.5",
     "eslint": "^9.37.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",

@@ -4,6 +4,16 @@
   "description": "Acquisitions API",
   "type": "module",
   "main": "index.js",
+  "imports": {
+    "#config/*": "./src/config/*",
+    "#controllers/*": "./src/controllers/*",
+    "#middlewares/*": "./src/middlewares/*",
+    "#models*": "./src/models*",
+    "#routes/*": "./src/routes/*",
+    "#services/*": "./src/services/*",
+    "#utils/*": "./src/utils/*",
+    "#validations/*": "./src/validations/*"
+  },
   "scripts": {
     "dev": "node --watch src/index.js",
     "lint": "eslint .",

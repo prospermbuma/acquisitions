@@ -5,6 +5,9 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import logger from '#config/logger.js';
 
+// Import routes
+import authRoutes from '#routes/auth.routes.js';
+
 // Initialize Express app
 const app = express();
 
@@ -26,11 +29,19 @@ app.use(express.urlencoded({ extended: true }));
 // Middleware for logging HTTP requests
 app.use(morgan('combined', { stream: { write: (message) => logger.info(message.trim()) } }));
 
-// Define a route
+// Default route
 app.get('/', (req, res) => {
   logger.info('Hello from Acquisitions API!');
 
   res.status(200).send('Hello from Acquisitions API!');
 });
+
+// Health check route
+app.get('/health', (req, res) => {
+  res.status(200).send('OK');
+});
+
+// Use API routes
+app.use('/api/v1/auth', authRoutes);
 
 export default app;

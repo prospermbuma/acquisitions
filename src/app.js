@@ -27,7 +27,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Middleware for logging HTTP requests
-app.use(morgan('combined', { stream: { write: (message) => logger.info(message.trim()) } }));
+app.use(
+  morgan('combined', {
+    stream: { write: message => logger.info(message.trim()) },
+  })
+);
 
 // Default route
 app.get('/', (req, res) => {
@@ -38,7 +42,17 @@ app.get('/', (req, res) => {
 
 // Health check route
 app.get('/health', (req, res) => {
-  res.status(200).send('OK');
+  res
+    .status(200)
+    .send({
+      status: 'OK',
+      timestamp: new Date().toISOString(),
+      uptime: process.uptime(),
+    });
+});
+
+app.get('/api/', (req, res) => {
+  res.status(200).json({ message: 'Acquisitions API is running!' });
 });
 
 // Use API routes

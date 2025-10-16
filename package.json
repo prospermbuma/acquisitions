@@ -43,12 +43,13 @@
     "drizzle-orm": "^0.44.6",
     "express": "^5.1.0",
     "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.1",
     "winston": "^3.18.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.37.0",
-    "drizzle-kit": "^0.18.1",
+    "drizzle-kit": "^0.31.5",
     "eslint": "^9.37.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",

@@ -4,6 +4,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import logger from '#config/logger.js';
+import securityMiddleware from '#middlewares/security.middleware.js';
 
 // Import routes
 import authRoutes from '#routes/auth.routes.js';
@@ -32,6 +33,9 @@ app.use(
     stream: { write: message => logger.info(message.trim()) },
   })
 );
+
+// Security Middleware
+app.use(securityMiddleware);
 
 // Default route
 app.get('/', (req, res) => {

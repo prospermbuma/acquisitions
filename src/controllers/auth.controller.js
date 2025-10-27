@@ -51,7 +51,6 @@ export const signUp = async (req, res, next) => {
   }
 };
 
-
 // Sign-In Controller
 export const signIn = async (req, res, next) => {
   try {

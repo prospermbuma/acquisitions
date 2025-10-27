@@ -4,3 +4,9 @@ logs/
 *.log
 .env.*
 .env
+
+# Docker
+.dockerignore
+
+# Neon Local
+.neon_local/

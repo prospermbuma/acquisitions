@@ -1,0 +1,49 @@
+services:
+  # Neon Local proxy for development
+  neon-local:
+    image: neondatabase/neon_local:latest
+    container_name: acquisitions-neon-local
+    ports:
+      - '5432:5432'
+    environment:
+      NEON_API_KEY: ${NEON_API_KEY}
+      NEON_PROJECT_ID: ${NEON_PROJECT_ID}
+      PARENT_BRANCH_ID: ${PARENT_BRANCH_ID} # Creates ephemeral branch
+      DELETE_BRANCH: 'true' # Auto-cleanup when container stops
+    networks:
+      - acquisitions-network
+    healthcheck:
+      test: ["CMD", "pg_isready", "-h", "localhost", "-p", "5432"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Application service
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: acquisitions-app-dev
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgres://neon:npg@neon-local:5432/neondb?sslmode=require
+      - PORT=${PORT:-3000}
+      - LOG_LEVEL=${LOG_LEVEL:-debug}
+      - ARCJET_KEY=${ARCJET_KEY}
+    env_file:
+      - .env.development
+    depends_on:
+      neon-local:
+        condition: service_healthy
+    networks:
+      - acquisitions-network
+    volumes:
+      - ./src:/app/src # Hot reload for development
+      - ./logs:/app/logs
+    restart: unless-stopped
+
+networks:
+  acquisitions-network:
+    driver: bridge

@@ -1,5 +1,5 @@
 import express from 'express';
-import { signUp } from '#controllers/auth.controller.js';
+import { signUp, signIn, signOut } from '#controllers/auth.controller.js';
 
 const authRoutes = express.Router();
 
@@ -7,13 +7,9 @@ const authRoutes = express.Router();
 authRoutes.post('/sign-up', signUp);
 
 // Sign-In Route
-authRoutes.post('/sign-in', (req, res) => {
-  res.send('POST /api/auth/sign-in response');
-});
+authRoutes.post('/sign-in', signIn);
 
 // Sign-Out Route
-authRoutes.post('/sign-out', (req, res) => {
-  res.send('POST /api/auth/sign-out response');
-});
+authRoutes.post('/sign-out', signOut);
 
 export default authRoutes;

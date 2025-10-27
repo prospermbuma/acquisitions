@@ -5,12 +5,14 @@ This file provides guidance to WARP (warp.dev) when working with code in this re
 ## Common Commands
 
 ### Development
+
 ```bash
 npm run dev          # Start development server with hot reload (nodemon)
 npm start            # Start server with Node.js --watch flag
 ```
 
 ### Code Quality
+
 ```bash
 npm run lint         # Run ESLint to check for code issues
 npm run lint:fix     # Auto-fix ESLint issues
@@ -19,6 +21,7 @@ npm run format:check # Check if code is formatted correctly
 ```
 
 ### Database Operations
+
 ```bash
 npm run db:generate  # Generate Drizzle migrations from schema
 npm run db:migrate   # Run pending database migrations
@@ -28,7 +31,9 @@ npm run db:studio    # Open Drizzle Studio for database management
 ## Architecture Overview
 
 ### Import Aliases
+
 The project uses Node.js subpath imports (not TypeScript path aliases) with the `#` prefix. All imports must follow this pattern:
+
 - `#config/*` → `./src/config/*`
 - `#controllers/*` → `./src/controllers/*`
 - `#middlewares/*` → `./src/middlewares/*`
@@ -39,20 +44,24 @@ The project uses Node.js subpath imports (not TypeScript path aliases) with the 
 - `#validations/*` → `./src/validations/*`
 
 ### Layered Architecture
+
 The codebase follows a clean, layered architecture pattern:
 
 **Entry Point Flow**: `index.js` → `server.js` → `app.js`
+
 - `index.js`: Loads environment variables and bootstraps the server
 - `server.js`: Starts the Express server on configured port
 - `app.js`: Configures middleware and routes
 
 **Request Flow**: Route → Controller → Service → Database
+
 - **Routes** (`src/routes/`): Define API endpoints and HTTP methods
 - **Controllers** (`src/controllers/`): Handle request/response, validate input with Zod schemas
 - **Services** (`src/services/`): Contain business logic and database operations
 - **Models** (`src/models/`): Define Drizzle ORM database schemas
 
 **Supporting Layers**:
+
 - **Validations** (`src/validations/`): Zod schemas for request validation
 - **Utils** (`src/utils/`): Reusable utilities (JWT, cookies, formatters)
 - **Config** (`src/config/`): Application configuration (database connection, logger)
@@ -72,6 +81,7 @@ The codebase follows a clean, layered architecture pattern:
 ## Environment Variables
 
 Required in `.env`:
+
 ```
 PORT=3000
 NODE_ENV=development
@@ -85,6 +95,7 @@ JWT_EXPIRES_IN=1d      # JWT expiration time
 ## Development Guidelines
 
 ### Adding New Features
+
 1. Define Drizzle model in `src/models/` if database table needed
 2. Run `npm run db:generate` and `npm run db:migrate` for schema changes
 3. Create Zod validation schema in `src/validations/`
@@ -94,6 +105,7 @@ JWT_EXPIRES_IN=1d      # JWT expiration time
 7. Run `npm run lint:fix` and `npm run format` before committing
 
 ### Code Style
+
 - Use ES modules (`import/export`) throughout
 - Use arrow functions for utilities and service methods
 - Use async/await for asynchronous operations
@@ -102,6 +114,7 @@ JWT_EXPIRES_IN=1d      # JWT expiration time
 - Use descriptive variable names (e.g., `validationResult`, `existingUser`)
 
 ### Database Queries
+
 - Use Drizzle ORM query builder, not raw SQL
 - Import table schemas from `#models/`
 - Use Drizzle operators from `drizzle-orm` (e.g., `eq`, `and`, `or`)

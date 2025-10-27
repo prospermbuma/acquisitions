@@ -70,12 +70,13 @@ const securityMiddleware = async (req, res, next) => {
         userAgent: req.get('User-Agent'),
         path: req.path,
         method: req.method,
+        role,
       });
       return res
         .status(429)
         .json({
           error: 'Too Many Requests',
-          message: 'You have exceeded your request limit',
+          message,
         });
     }
 

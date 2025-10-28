@@ -50,6 +50,6 @@ docker-compose -f docker-compose.dev.yml up --build
 Write-Host ""
 Write-Host "🎉 Development environment started!" -ForegroundColor Green
 Write-Host "   Application: http://localhost:3000" -ForegroundColor Yellow
-Write-Host "   Database: postgres://neon:npg@localhost:5432/neondb" -ForegroundColor Yellow
+Write-Host "   Database: postgres://neon:npg@localhost:5432/acquisitiondb" -ForegroundColor Yellow
 Write-Host ""
 Write-Host "To stop the environment, press Ctrl+C or run: docker-compose -f docker-compose.dev.yml down" -ForegroundColor Gray

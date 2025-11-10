@@ -5,24 +5,28 @@ This directory contains scripts to manage the Acquisitions API Docker environmen
 ## 📁 Available Scripts
 
 ### Development Scripts
+
 - **`dev.sh`** / **`dev.ps1`** - Start development environment with Neon Local
 - **`dev-stop.ps1`** - Stop development environment (PowerShell only)
 
 ### Production Scripts
+
 - **`prod.sh`** / **`prod.ps1`** - Start production environment with Neon Cloud
 - **`prod-stop.ps1`** - Stop production environment (PowerShell only)
 
 ### Utility Scripts
+
 - **`docker-logs.ps1`** - View logs and status for Docker environments (PowerShell only)
 
 ## 🚀 Quick Start
 
 ### For Windows (PowerShell)
+
 ```powershell
 # Start development environment
 npm run docker:dev:ps1
 
-# Start production environment  
+# Start production environment
 npm run docker:prod:ps1
 
 # Stop environments
@@ -34,6 +38,7 @@ npm run docker:logs
 ```
 
 ### For Unix/Linux/Mac (Bash)
+
 ```bash
 # Start development environment
 npm run docker:dev
@@ -45,28 +50,31 @@ npm run docker:prod
 ## 📋 NPM Scripts Reference
 
 ### Environment Management
-| Script | Command | Description |
-|--------|---------|-------------|
-| `docker:dev` | `sh ./scripts/dev.sh` | Start dev environment (bash) |
-| `docker:prod` | `sh ./scripts/prod.sh` | Start prod environment (bash) |
-| `docker:dev:ps1` | `powershell -ExecutionPolicy Bypass -File ./scripts/dev.ps1` | Start dev environment (PowerShell) |
-| `docker:prod:ps1` | `powershell -ExecutionPolicy Bypass -File ./scripts/prod.ps1` | Start prod environment (PowerShell) |
-| `docker:dev:stop` | `powershell -ExecutionPolicy Bypass -File ./scripts/dev-stop.ps1` | Stop dev environment |
-| `docker:prod:stop` | `powershell -ExecutionPolicy Bypass -File ./scripts/prod-stop.ps1` | Stop prod environment |
+
+| Script             | Command                                                            | Description                         |
+| ------------------ | ------------------------------------------------------------------ | ----------------------------------- |
+| `docker:dev`       | `sh ./scripts/dev.sh`                                              | Start dev environment (bash)        |
+| `docker:prod`      | `sh ./scripts/prod.sh`                                             | Start prod environment (bash)       |
+| `docker:dev:ps1`   | `powershell -ExecutionPolicy Bypass -File ./scripts/dev.ps1`       | Start dev environment (PowerShell)  |
+| `docker:prod:ps1`  | `powershell -ExecutionPolicy Bypass -File ./scripts/prod.ps1`      | Start prod environment (PowerShell) |
+| `docker:dev:stop`  | `powershell -ExecutionPolicy Bypass -File ./scripts/dev-stop.ps1`  | Stop dev environment                |
+| `docker:prod:stop` | `powershell -ExecutionPolicy Bypass -File ./scripts/prod-stop.ps1` | Stop prod environment               |
 
 ### Logging & Monitoring
-| Script | Command | Description |
-|--------|---------|-------------|
-| `docker:logs` | `powershell -ExecutionPolicy Bypass -File ./scripts/docker-logs.ps1` | Show logs for all environments |
-| `docker:logs:dev` | `powershell -ExecutionPolicy Bypass -File ./scripts/docker-logs.ps1 -Environment dev` | Show dev environment logs |
-| `docker:logs:prod` | `powershell -ExecutionPolicy Bypass -File ./scripts/docker-logs.ps1 -Environment prod` | Show prod environment logs |
-| `docker:logs:follow` | `powershell -ExecutionPolicy Bypass -File ./scripts/docker-logs.ps1 -Follow` | Follow logs in real-time |
+
+| Script               | Command                                                                                | Description                    |
+| -------------------- | -------------------------------------------------------------------------------------- | ------------------------------ |
+| `docker:logs`        | `powershell -ExecutionPolicy Bypass -File ./scripts/docker-logs.ps1`                   | Show logs for all environments |
+| `docker:logs:dev`    | `powershell -ExecutionPolicy Bypass -File ./scripts/docker-logs.ps1 -Environment dev`  | Show dev environment logs      |
+| `docker:logs:prod`   | `powershell -ExecutionPolicy Bypass -File ./scripts/docker-logs.ps1 -Environment prod` | Show prod environment logs     |
+| `docker:logs:follow` | `powershell -ExecutionPolicy Bypass -File ./scripts/docker-logs.ps1 -Follow`           | Follow logs in real-time       |
 
 ## 🔧 Script Details
 
 ### Development Scripts (`dev.sh` / `dev.ps1`)
 
 **What it does:**
+
 - ✅ Checks if `.env.development` exists
 - ✅ Verifies Docker is running
 - ✅ Creates `.neon_local` directory
@@ -75,10 +83,12 @@ npm run docker:prod
 - ✅ Starts application container with hot reload
 
 **Requirements:**
+
 - Docker Desktop running
 - `.env.development` configured with Neon credentials
 
 **Usage:**
+
 ```powershell
 # PowerShell (Windows)
 npm run docker:dev:ps1
@@ -90,6 +100,7 @@ npm run docker:dev
 ### Production Scripts (`prod.sh` / `prod.ps1`)
 
 **What it does:**
+
 - ✅ Checks if `.env.production` exists
 - ✅ Verifies Docker is running
 - ✅ Starts production container with Neon Cloud connection
@@ -97,27 +108,31 @@ npm run docker:dev
 - ✅ Shows container status and useful commands
 
 **Requirements:**
+
 - Docker Desktop running
 - `.env.production` configured with production DATABASE_URL
 
 **Usage:**
+
 ```powershell
 # PowerShell (Windows)
 npm run docker:prod:ps1
 
-# Bash (Unix/Linux/Mac)  
+# Bash (Unix/Linux/Mac)
 npm run docker:prod
 ```
 
 ### Stop Scripts (`dev-stop.ps1` / `prod-stop.ps1`)
 
 **What they do:**
+
 - ✅ Stop Docker containers gracefully
 - ✅ Remove containers (not volumes)
 - ✅ Clean up network resources
 - ✅ Show confirmation messages
 
 **Usage:**
+
 ```powershell
 # Stop development environment
 npm run docker:dev:stop
@@ -129,16 +144,19 @@ npm run docker:prod:stop
 ### Logging Script (`docker-logs.ps1`)
 
 **What it does:**
+
 - ✅ Shows container status for dev/prod environments
 - ✅ Displays recent logs (last 50 lines)
 - ✅ Supports real-time log following
 - ✅ Environment-specific or combined view
 
 **Parameters:**
+
 - `-Environment`: `dev`, `prod`, or `both` (default: `both`)
 - `-Follow`: Follow logs in real-time
 
 **Usage:**
+
 ```powershell
 # View all environments
 npm run docker:logs
@@ -157,6 +175,7 @@ powershell -ExecutionPolicy Bypass -File ./scripts/docker-logs.ps1 -Environment 
 ## 🛠️ Manual Script Execution
 
 ### PowerShell Scripts (Windows)
+
 ```powershell
 # Navigate to project root
 cd C:\Users\PC\acquisitions
@@ -178,6 +197,7 @@ cd C:\Users\PC\acquisitions
 ```
 
 ### Bash Scripts (Unix/Linux/Mac)
+
 ```bash
 # Navigate to project root
 cd /path/to/acquisitions
@@ -195,25 +215,32 @@ chmod +x scripts/*.sh
 ## 🔍 Troubleshooting
 
 ### PowerShell Execution Policy Issues
+
 If you get execution policy errors, run:
+
 ```powershell
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
 
 Or use bypass for single execution:
+
 ```powershell
 powershell -ExecutionPolicy Bypass -File ./scripts/dev.ps1
 ```
 
 ### Docker Not Running
+
 All scripts check if Docker is running and provide helpful error messages:
+
 ```
 ❌ Error: Docker is not running!
    Please start Docker Desktop and try again.
 ```
 
 ### Missing Environment Files
+
 Scripts check for required environment files:
+
 ```
 ❌ Error: .env.development file not found!
    Please copy .env.development from the template and update with your Neon credentials.
@@ -222,6 +249,7 @@ Scripts check for required environment files:
 ## 🎯 Common Workflows
 
 ### Daily Development (Windows)
+
 ```powershell
 # Start development
 npm run docker:dev:ps1
@@ -234,6 +262,7 @@ npm run docker:dev:stop
 ```
 
 ### Production Deployment
+
 ```powershell
 # Deploy to production
 npm run docker:prod:ps1
@@ -246,26 +275,27 @@ npm run docker:logs:prod
 ```
 
 ### Cross-Platform Development
+
 ```bash
 # Unix/Linux/Mac developers
 npm run docker:dev
 
-# Windows developers  
+# Windows developers
 npm run docker:dev:ps1
 ```
 
 ## 📊 Script Features Comparison
 
-| Feature | Bash Scripts | PowerShell Scripts |
-|---------|-------------|-------------------|
-| Environment checks | ✅ | ✅ |
-| Docker validation | ✅ | ✅ |
-| Colored output | ✅ | ✅ |
-| Error handling | ✅ | ✅ |
-| Stop scripts | ❌ | ✅ |
-| Log viewing | ❌ | ✅ |
-| Status monitoring | ❌ | ✅ |
-| Parameters support | ❌ | ✅ |
+| Feature            | Bash Scripts | PowerShell Scripts |
+| ------------------ | ------------ | ------------------ |
+| Environment checks | ✅           | ✅                 |
+| Docker validation  | ✅           | ✅                 |
+| Colored output     | ✅           | ✅                 |
+| Error handling     | ✅           | ✅                 |
+| Stop scripts       | ❌           | ✅                 |
+| Log viewing        | ❌           | ✅                 |
+| Status monitoring  | ❌           | ✅                 |
+| Parameters support | ❌           | ✅                 |
 
 ## 🔒 Security Notes
 
@@ -285,6 +315,7 @@ npm run docker:dev:ps1
 ## 🤝 Contributing
 
 When adding new scripts:
+
 1. Create both `.sh` (bash) and `.ps1` (PowerShell) versions when possible
 2. Add corresponding npm scripts to `package.json`
 3. Update this documentation

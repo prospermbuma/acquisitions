@@ -1,60 +1,42 @@
-# Base stage with common dependencies
-FROM node:20-alpine AS base
+# Multi-stage Dockerfile for Node.js acquisitions application
 
+# Base image with Node.js
+FROM node:18-alpine AS base
+
+# Set working directory
 WORKDIR /app
-
-# Install system dependencies
-RUN apk add --no-cache dumb-init curl
 
 # Copy package files
 COPY package*.json ./
 
-# Development stage
-FROM base AS development
-
-# Install all dependencies (including dev dependencies)
-RUN npm ci
-
-# Copy application code
-COPY . .
-
-# Create non-root user
-RUN addgroup -g 1001 -S nodejs && \
-    adduser -S nodejs -u 1001 && \
-    chown -R nodejs:nodejs /app
-
-USER nodejs
-
-# Expose port
-EXPOSE 3000
-
-# Use dumb-init to handle signals properly
-ENTRYPOINT ["dumb-init", "--"]
-
-# Start with nodemon for hot reload
-CMD ["npm", "run", "dev"]
-
-# Production stage
-FROM base AS production
-
-# Install only production dependencies
+# Install dependencies
 RUN npm ci --only=production && npm cache clean --force
 
-# Copy application code
+# Copy source code
 COPY . .
 
 # Create non-root user for security
 RUN addgroup -g 1001 -S nodejs && \
-    adduser -S nodejs -u 1001 && \
-    chown -R nodejs:nodejs /app
+    adduser -S nodejs -u 1001
 
+# Change ownership of the app directory
+RUN chown -R nodejs:nodejs /app
 USER nodejs
 
-# Expose port
+# Expose the port
 EXPOSE 3000
 
-# Use dumb-init to handle signals properly
-ENTRYPOINT ["dumb-init", "--"]
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD node -e "require('http').get('http://localhost:3000/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) }).on('error', () => { process.exit(1) })"
 
-# Start the application
+# Development stage
+FROM base AS development
+USER root
+RUN npm ci && npm cache clean --force
+USER nodejs
+CMD ["npm", "run", "dev"]
+
+# Production stage
+FROM base AS production
 CMD ["npm", "start"]
